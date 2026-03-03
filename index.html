@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UsedMe.lk - Sri Lanka's Marketplace</title>
+    <style>
+        /* ALL YOUR EXISTING STYLES - KEPT EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            padding: 1rem 5%;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo .mobile-logo {
+            font-size: 2.2rem;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-links a.active {
+            color: #e74c3c;
+            background-color: rgba(255,255,255,0.15);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid #e74c3c;
+            padding: 0.3rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #e74c3c;
+        }
+
+        .login-btn, .register-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .register-btn {
+            background-color: transparent;
+            border: 2px solid #e74c3c;
+        }
+
+        .login-btn:hover, .register-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .register-btn:hover {
+            background-color: #e74c3c;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 100%;
+            display: flex;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 1rem 2rem;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #c0392b;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            min-height: calc(100vh - 300px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: #e74c3c;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #764ba2;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .category-card i {
+            font-size: 2rem;
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-card:hover i {
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #ddd;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-seller {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .seller-rating {
+            color: #f39c12;
+            font-size: 0.9rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .buy-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+
+        .buy-btn:hover {
+            background-color: #34495e;
+        }
+
+        .chat-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .chat-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .sold-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .auth-container h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .image-preview {
+            width: 100%;
+            min-height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .image-preview img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .image-preview.empty {
+            color: #999;
+            font-size: 0.9rem;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .chat-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            max-width: 70%;
+        }
+
+        .message.sent {
+            background-color: #3498db;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.received {
+            background-color: #e9e9e9;
+            color: #333;
+        }
+
+        .message-sender {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 0.2rem;
+            text-align: right;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        .chat-input-area button {
+            padding: 0.8rem 1.5rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #2980b9;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .order-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .order-details {
+            flex: 1;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-pending { background-color: #f39c12; color: white; }
+        .status-shipped { background-color: #3498db; color: white; }
+        .status-delivered { background-color: #27ae60; color: white; }
+
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 5% 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-section ul li a:hover {
+            color: #e74c3c;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            background-color: #27ae60;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            animation: slideIn 0.3s;
+        }
+
+        .notification.error {
+            background-color: #e74c3c;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-top">
+            <div class="logo" onclick="showSection('home')">
+                <span class="mobile-logo">📱</span>
+                Used<span>Me</span>
+            </div>
+            <div class="nav-links">
+                <a onclick="showSection('home')" id="nav-home">Home</a>
+                <a onclick="showSection('categories')" id="nav-categories">Categories</a>
+                <a onclick="showSection('sell')" id="nav-sell">Sell</a>
+                <a onclick="showSection('orders')" id="nav-orders">Orders</a>
+                <a onclick="showSection('chats')" id="nav-chats">Messages</a>
+                <div class="user-menu" id="userMenu"></div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for phones, laptops, furniture, vehicles..." onkeyup="if(event.key==='Enter') searchProducts()">
+                <button onclick="searchProducts()">🔍 Search</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <div class="loading">Loading UsedMe marketplace...</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About UsedMe</h3>
+                <p>Sri Lanka's fastest growing marketplace for buying and selling second-hand items. Safe, secure, and reliable.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a onclick="showSection('howItWorks')">How it Works</a></li>
+                    <li><a onclick="showSection('safety')">Safety Tips</a></li>
+                    <li><a onclick="showSection('faq')">FAQs</a></li>
+                    <li><a onclick="showSection('contact')">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a onclick="showSection('terms')">Terms of Service</a></li>
+                    <li><a onclick="showSection('privacy')">Privacy Policy</a></li>
+                    <li><a onclick="showSection('shipping')">Shipping Policy</a></li>
+                    <li><a onclick="showSection('returns')">Returns Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: support@usedme.lk</li>
+                    <li>Phone: +94 77 123 4567</li>
+                    <li>Address: Colombo, Sri Lanka</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 UsedMe.lk - All rights reserved. Made in Sri Lanka 🇱🇰</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== SUPABASE CONFIGURATION ====================
+        // Create your free Supabase account at https://supabase.com
+        // Replace these with your actual Supabase URL and anon key
+        const SUPABASE_URL = 'https://your-project.supabase.co';
+        const SUPABASE_ANON_KEY = 'your-anon-key';
+
+        // Supabase REST API helper
+        async function supabaseQuery(table, method = 'GET', data = null, id = null) {
+            let url = `${SUPABASE_URL}/rest/v1/${table}`;
+            if (id) url += `?id=eq.${id}`;
+            
+            const headers = {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            };
+
+            const options = {
+                method,
+                headers
+            };
+
+            if (data && (method === 'POST' || method === 'PATCH')) {
+                options.body = JSON.stringify(data);
+            }
+
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Supabase error:', error);
+                return null;
+            }
+        }
+
+        // ==================== DATA STORAGE (Permanent via Supabase) ====================
+        
+        // Initialize database tables (run these once in Supabase SQL editor)
+        /*
+        CREATE TABLE users (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            mobile TEXT,
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+
+        CREATE TABLE products (
+            id SERIAL PRIMARY KEY,
+            title TEXT NOT NULL,
+            price INTEGER NOT NULL,
+            category TEXT NOT NULL,
+            description TEXT,
+            condition TEXT,
+            location TEXT,
+            images TEXT[],
+            seller_id INTEGER REFERENCES users(id),
+            seller_name TEXT,
+            seller_mobile TEXT,
+            status TEXT DEFAULT 'available',
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+
+        CREATE TABLE orders (
+            id SERIAL PRIMARY KEY,
+            product_id INTEGER REFERENCES products(id),
+            product_title TEXT,
+            product_price INTEGER,
+            product_image TEXT,
+            seller_id INTEGER REFERENCES users(id),
+            seller_name TEXT,
+            buyer_id INTEGER REFERENCES users(id),
+            buyer_name TEXT,
+            buyer_mobile TEXT,
+            status TEXT DEFAULT 'pending',
+            platform_fee INTEGER,
+            seller_amount INTEGER,
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+
+        CREATE TABLE chats (
+            id SERIAL PRIMARY KEY,
+            product_id INTEGER REFERENCES products(id),
+            product_title TEXT,
+            product_image TEXT,
+            buyer_id INTEGER REFERENCES users(id),
+            buyer_name TEXT,
+            seller_id INTEGER REFERENCES users(id),
+            seller_name TEXT,
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+
+        CREATE TABLE messages (
+            id SERIAL PRIMARY KEY,
+            chat_id INTEGER REFERENCES chats(id),
+            sender_id INTEGER REFERENCES users(id),
+            sender_name TEXT,
+            text TEXT,
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+        */
+
+        // ==================== SESSION MANAGEMENT ====================
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || null;
+
+        // ==================== UI FUNCTIONS ====================
+        function showNotification(message, isError = false) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${isError ? 'error' : ''}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function updateNavUI() {
+            const userMenu = document.getElementById('userMenu');
+            const navOrders = document.getElementById('nav-orders');
+            const navChats = document.getElementById('nav-chats');
+            
+            if (currentUser) {
+                userMenu.innerHTML = `
+                    <span class="user-name">👤 ${currentUser.name}</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                `;
+                navOrders.style.display = 'inline';
+                navChats.style.display = 'inline';
+            } else {
+                userMenu.innerHTML = `
+                    <button class="login-btn" onclick="showSection('login')">Login</button>
+                    <button class="register-btn" onclick="showSection('register')">Register</button>
+                `;
+                navOrders.style.display = 'none';
+                navChats.style.display = 'none';
+            }
+        }
+
+        // ==================== AUTH FUNCTIONS ====================
+        function showRegister() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="auth-container">
+                    <h2>Create Your UsedMe Account</h2>
+                    <form onsubmit="register(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="regName" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="regEmail" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" id="regMobile" required placeholder="0771234567">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="regPassword" required placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="regConfirm" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="submit-btn">Create Account</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        Already have an account? <a href="#" onclick="showSection('login')">Login</a>
+                    </p>
+                </div>
+            `;
+        }
+
+        async function register(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const mobile = document.getElementById('regMobile').value;
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+
+            if (password !== confirm) {
+                showNotification('Passwords do not match!', true);
+                return;
+            }
+
+            // Check if user exists
+            const existingUsers = await supabaseQuery('users?email=eq.' + email);
+            if (existingUsers && existingUsers.length > 0) {
+                showNotification('Email already registered!', true);
+                return;
+            }
+
+            // Create user
+            const newUser = {
+                name,
+                email,
+                mobile,
+                password // In production, hash this!
+            };
+
+            const result = await supabaseQuery('users', 'POST', newUser);
+            
+            if (result && result[0]) {
+                currentUser = result[0];
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showNotification('Account created successfully!');
+                updateNavUI();
+                showHome();
+            } else {
+                showNotification('Registration failed', true);
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="auth-container">
+                    <h2>Login to UsedMe</h2>
+                    <form onsubmit="login(event)">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="loginEmail" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="submit-btn">Login</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        Don't have an account? <a href="#" onclick="showSection('register')">Register</a>
+                    </p>
+                </div>
+            `;
+        }
+
+        async function login(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const users = await supabaseQuery('users?email=eq.' + email);
+            const user = users ? users.find(u => u.password === password) : null;
+
+            if (user) {
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showNotification('Login successful!');
+                updateNavUI();
+                showHome();
+            } else {
+                showNotification('Invalid email or password!', true);
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            updateNavUI();
+            showHome();
+            showNotification('Logged out successfully');
+        }
+
+        // ==================== PRODUCT FUNCTIONS ====================
+        async function showHome() {
+            document.getElementById('mainContainer').innerHTML = '<div class="loading">Loading products...</div>';
+            
+            const products = await supabaseQuery('products?status=eq.available&order=created_at.desc');
+            
+            let productsHTML = '';
+            if (products) {
+                products.slice(0, 8).forEach(product => {
+                    productsHTML += createProductCard(product);
+                });
+            }
+
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="hero">
+                    <h1>Buy & Sell Second Hand Items in Sri Lanka</h1>
+                    <p>Join thousands of buyers and sellers on UsedMe. Safe, secure, and easy!</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="document.getElementById('searchInput').focus()">Start Shopping</button>
+                        <button class="btn-secondary" onclick="showSection('sell')">Start Selling</button>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Popular Categories</h2>
+                <div class="categories">
+                    <div class="category-card" onclick="filterByCategory('Electronics')">
+                        <i>📱</i>
+                        <h3>Electronics</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('Fashion')">
+                        <i>👕</i>
+                        <h3>Fashion</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('Books')">
+                        <i>📚</i>
+                        <h3>Books</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('Furniture')">
+                        <i>🪑</i>
+                        <h3>Furniture</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('Vehicles')">
+                        <i>🚗</i>
+                        <h3>Vehicles</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('Real Estate')">
+                        <i>🏠</i>
+                        <h3>Real Estate</h3>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid" id="productsGrid">
+                    ${productsHTML || '<p style="grid-column: 1/-1; text-align: center;">No products available</p>'}
+                </div>
+            `;
+
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.getElementById('nav-home').classList.add('active');
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <div class="product-image" onclick="viewProduct(${product.id})">
+                        <img src="${product.images && product.images[0] ? product.images[0] : 'https://via.placeholder.com/300x200?text=No+Image'}" alt="${product.title}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">LKR ${product.price.toLocaleString()}</div>
+                        <div class="product-seller">
+                            Seller: ${product.seller_name}
+                            <span class="seller-rating">★★★★☆</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="buy-btn" onclick="buyNow(${product.id})">Buy Now</button>
+                            <button class="chat-btn" onclick="contactSeller(${product.id})">
+                                <span>💬</span> Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function showSellForm() {
+            if (!currentUser) {
+                showNotification('Please login to sell items', true);
+                showSection('login');
+                return;
+            }
+
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="auth-container" style="max-width: 600px;">
+                    <h2>Sell Your Item</h2>
+                    <form onsubmit="listProduct(event)">
+                        <div class="form-group">
+                            <label>Product Title</label>
+                            <input type="text" id="productTitle" required placeholder="e.g., iPhone 12 Pro Max">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Books">Books</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Vehicles">Vehicles</option>
+                                <option value="Real Estate">Real Estate</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (LKR)</label>
+                            <input type="number" id="productPrice" required placeholder="180000">
+                        </div>
+                        <div class="form-group">
+                            <label>Condition</label>
+                            <select id="productCondition" required>
+                                <option value="New">New</option>
+                                <option value="Like New">Like New</option>
+                                <option value="Good">Good</option>
+                                <option value="Fair">Fair</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="productLocation" required placeholder="Colombo">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="productDescription" required placeholder="Describe your item..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Images</label>
+                            <div class="image-preview empty" id="imagePreview" onclick="document.getElementById('fileInput').click()">
+                                Click to upload images (max 5)
+                            </div>
+                            <input type="file" id="fileInput" class="file-input" accept="image/*" multiple onchange="previewImages(event)">
+                        </div>
+                        <button type="submit" class="submit-btn">List Product</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function previewImages(event) {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            preview.classList.remove('empty');
+
+            const files = event.target.files;
+            for (let i = 0; i < Math.min(files.length, 5); i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        async function listProduct(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('productTitle').value;
+            const category = document.getElementById('productCategory').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const condition = document.getElementById('productCondition').value;
+            const location = document.getElementById('productLocation').value;
+            const description = document.getElementById('productDescription').value;
+
+            const images = [];
+            const previewImages = document.querySelectorAll('#imagePreview img');
+            previewImages.forEach(img => images.push(img.src));
+
+            if (images.length === 0) {
+                showNotification('Please upload at least one image', true);
+                return;
+            }
+
+            const newProduct = {
+                title,
+                price,
+                category,
+                description,
+                condition,
+                location,
+                images,
+                seller_id: currentUser.id,
+                seller_name: currentUser.name,
+                seller_mobile: currentUser.mobile,
+                status: 'available'
+            };
+
+            const result = await supabaseQuery('products', 'POST', newProduct);
+            
+            if (result) {
+                showNotification('Product listed successfully!');
+                showHome();
+            } else {
+                showNotification('Failed to list product', true);
+            }
+        }
+
+        async function viewProduct(productId) {
+            const products = await supabaseQuery('products', 'GET', null, productId);
+            const product = products ? products[0] : null;
+            
+            if (!product) return;
+
+            document.getElementById('mainContainer').innerHTML = `
+                <div style="background: white; padding: 2rem; border-radius: 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <img src="${product.images[0]}" style="width: 100%; border-radius: 8px;" alt="${product.title}">
+                            ${product.images.length > 1 ? `
+                                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                    ${product.images.slice(1).map(img => `
+                                        <img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="this.parentElement.parentElement.previousElementSibling.src='${img}'">
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div>
+                            <h1 style="font-size: 2rem; margin-bottom: 1rem;">${product.title}</h1>
+                            <div style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;">LKR ${product.price.toLocaleString()}</div>
+                            
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                <h3 style="margin-bottom: 1rem;">Seller Information</h3>
+                                <p><strong>Name:</strong> ${product.seller_name}</p>
+                                <p><strong>Mobile:</strong> ${product.seller_mobile}</p>
+                                <p><strong>Location:</strong> ${product.location}</p>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h3 style="margin-bottom: 1rem;">Product Details</h3>
+                                <p><strong>Category:</strong> ${product.category}</p>
+                                <p><strong>Condition:</strong> ${product.condition}</p>
+                                <p><strong>Description:</strong> ${product.description}</p>
+                                <p><strong>Listed:</strong> ${new Date(product.created_at).toLocaleDateString()}</p>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="buy-btn" style="padding: 1rem 2rem; font-size: 1.1rem;" onclick="buyNow(${product.id})">Buy Now</button>
+                                <button class="chat-btn" style="padding: 1rem 2rem; font-size: 1.1rem;" onclick="contactSeller(${product.id})">Chat with Seller</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function buyNow(productId) {
+            if (!currentUser) {
+                showNotification('Please login to buy', true);
+                showSection('login');
+                return;
+            }
+
+            const products = await supabaseQuery('products', 'GET', null, productId);
+            const product = products ? products[0] : null;
+
+            if (!product || product.status !== 'available') {
+                showNotification('Product not available', true);
+                return;
+            }
+
+            const platformFee = Math.floor(product.price * 0.05);
+            const sellerAmount = product.price - platformFee;
+
+            const newOrder = {
+                product_id: product.id,
+                product_title: product.title,
+                product_price: product.price,
+                product_image: product.images[0],
+                seller_id: product.seller_id,
+                seller_name: product.seller_name,
+                buyer_id: currentUser.id,
+                buyer_name: currentUser.name,
+                buyer_mobile: currentUser.mobile,
+                status: 'pending',
+                platform_fee: platformFee,
+                seller_amount: sellerAmount
+            };
+
+            const orderResult = await supabaseQuery('orders', 'POST', newOrder);
+            
+            // Update product status
+            await supabaseQuery('products', 'PATCH', { status: 'sold' }, product.id);
+
+            if (orderResult) {
+                showNotification(`Purchase successful! Platform fee: LKR ${platformFee}`);
+                showSection('orders');
+            }
+        }
+
+        async function contactSeller(productId) {
+            if (!currentUser) {
+                showNotification('Please login to chat', true);
+                showSection('login');
+                return;
+            }
+
+            const products = await supabaseQuery('products', 'GET', null, productId);
+            const product = products ? products[0] : null;
+
+            // Check if chat exists
+            const chats = await supabaseQuery(`chats?product_id=eq.${productId}&buyer_id=eq.${currentUser.id}&seller_id=eq.${product.seller_id}`);
+            let chat = chats && chats.length > 0 ? chats[0] : null;
+
+            if (!chat) {
+                const newChat = {
+                    product_id: product.id,
+                    product_title: product.title,
+                    product_image: product.images[0],
+                    buyer_id: currentUser.id,
+                    buyer_name: currentUser.name,
+                    seller_id: product.seller_id,
+                    seller_name: product.seller_name
+                };
+                const chatResult = await supabaseQuery('chats', 'POST', newChat);
+                chat = chatResult ? chatResult[0] : null;
+            }
+
+            if (chat) {
+                showChat(chat.id);
+            }
+        }
+
+        async function showChat(chatId) {
+            const chats = await supabaseQuery('chats', 'GET', null, chatId);
+            const messages = await supabaseQuery(`messages?chat_id=eq.${chatId}&order=created_at.asc`);
+            const chat = chats ? chats[0] : null;
+            
+            if (!chat) return;
+
+            const otherUser = chat.buyer_id === currentUser.id ? chat.seller_name : chat.buyer_name;
+
+            let messagesHTML = '';
+            if (messages) {
+                messages.forEach(msg => {
+                    const isSent = msg.sender_id === currentUser.id;
+                    messagesHTML += `
+                        <div class="message ${isSent ? 'sent' : 'received'}">
+                            <div class="message-sender">${isSent ? 'You' : otherUser}</div>
+                            <div>${msg.text}</div>
+                            <div class="message-time">${new Date(msg.created_at).toLocaleTimeString()}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="chat-container">
+                    <div class="chat-header">
+                        Chat with ${otherUser} about "${chat.product_title}"
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        ${messagesHTML}
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="messageInput" placeholder="Type your message..." onkeyup="if(event.key==='Enter') sendMessage(${chat.id})">
+                        <button onclick="sendMessage(${chat.id})">Send</button>
+                    </div>
+                </div>
+                <button class="btn-secondary" onclick="showSection('chats')" style="margin-top: 1rem;">← Back to Chats</button>
+            `;
+
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        async function sendMessage(chatId) {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            const newMessage = {
+                chat_id: chatId,
+                sender_id: currentUser.id,
+                sender_name: currentUser.name,
+                text: text
+            };
+
+            const result = await supabaseQuery('messages', 'POST', newMessage);
+            
+            if (result) {
+                input.value = '';
+                showChat(chatId);
+            }
+        }
+
+        async function showOrders() {
+            if (!currentUser) {
+                showSection('login');
+                return;
+            }
+
+            const orders = await supabaseQuery(`orders?or=(buyer_id.eq.${currentUser.id},seller_id.eq.${currentUser.id})&order=created_at.desc`);
+
+            if (!orders || orders.length === 0) {
+                document.getElementById('mainContainer').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; background: white; border-radius: 8px;">
+                        <h2>No orders yet</h2>
+                        <p style="margin: 1rem 0;">Start shopping to see your orders here!</p>
+                        <button class="btn-primary" onclick="showHome()">Browse Products</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let ordersHTML = '';
+            orders.forEach(order => {
+                const isBuyer = order.buyer_id === currentUser.id;
+                ordersHTML += `
+                    <div class="order-card">
+                        <img src="${order.product_image}" class="order-image" alt="${order.product_title}">
+                        <div class="order-details">
+                            <h3>${order.product_title}</h3>
+                            <p>Price: LKR ${order.product_price.toLocaleString()}</p>
+                            <p>${isBuyer ? 'Seller' : 'Buyer'}: ${isBuyer ? order.seller_name : order.buyer_name}</p>
+                            <p>Platform Fee: LKR ${order.platform_fee.toLocaleString()}</p>
+                            <span class="order-status status-${order.status}">${order.status.toUpperCase()}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('mainContainer').innerHTML = `
+                <h2 class="section-title">My Orders</h2>
+                ${ordersHTML}
+            `;
+        }
+
+        async function showChats() {
+            if (!currentUser) {
+                showSection('login');
+                return;
+            }
+
+            const chats = await supabaseQuery(`chats?or=(buyer_id.eq.${currentUser.id},seller_id.eq.${currentUser.id})&order=created_at.desc`);
+
+            if (!chats || chats.length === 0) {
+                document.getElementById('mainContainer').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; background: white; border-radius: 8px;">
+                        <h2>No messages yet</h2>
+                        <p style="margin: 1rem 0;">Start chatting with sellers to see your conversations here!</p>
+                        <button class="btn-primary" onclick="showHome()">Browse Products</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let chatsHTML = '';
+            chats.forEach(chat => {
+                const otherUser = chat.buyer_id === currentUser.id ? chat.seller_name : chat.buyer_name;
+                chatsHTML += `
+                    <div class="order-card" onclick="showChat(${chat.id})" style="cursor: pointer;">
+                        <img src="${chat.product_image}" class="order-image" alt="${chat.product_title}">
+                        <div class="order-details">
+                            <h3>${chat.product_title}</h3>
+                            <p>Chat with: ${otherUser}</p>
+                            <p style="color: #666;">Click to view conversation →</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('mainContainer').innerHTML = `
+                <h2 class="section-title">My Chats</h2>
+                ${chatsHTML}
+            `;
+        }
+
+        async function filterByCategory(category) {
+            document.getElementById('mainContainer').innerHTML = '<div class="loading">Loading products...</div>';
+            
+            const products = await supabaseQuery(`products?status=eq.available&category=eq.${category}&order=created_at.desc`);
+
+            let productsHTML = '';
+            if (products) {
+                products.forEach(product => {
+                    productsHTML += createProductCard(product);
+                });
+            }
+
+            document.getElementById('mainContainer').innerHTML = `
+                <h2 class="section-title">${category}</h2>
+                <div class="products-grid">
+                    ${productsHTML || '<p style="grid-column: 1/-1; text-align: center;">No products in this category</p>'}
+                </div>
+                <button class="btn-secondary" onclick="showHome()" style="margin-top: 1rem;">← Back to Home</button>
+            `;
+        }
+
+        async function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            document.getElementById('mainContainer').innerHTML = '<div class="loading">Searching...</div>';
+            
+            const products = await supabaseQuery('products?status=eq.available');
+            
+            const filtered = products ? products.filter(p => 
+                p.title.toLowerCase().includes(searchTerm) || 
+                (p.description && p.description.toLowerCase().includes(searchTerm)) ||
+                p.category.toLowerCase().includes(searchTerm)
+            ) : [];
+
+            let productsHTML = '';
+            filtered.forEach(product => {
+                productsHTML += createProductCard(product);
+            });
+
+            document.getElementById('mainContainer').innerHTML = `
+                <h2 class="section-title">Search Results for "${searchTerm}"</h2>
+                <div class="products-grid">
+                    ${productsHTML || '<p style="grid-column: 1/-1; text-align: center;">No products found</p>'}
+                </div>
+                <button class="btn-secondary" onclick="showHome()" style="margin-top: 1rem;">← Back to Home</button>
+            `;
+        }
+
+        function showSection(section) {
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const navElement = document.getElementById(`nav-${section}`);
+            if (navElement) navElement.classList.add('active');
+
+            switch(section) {
+                case 'home': showHome(); break;
+                case 'categories': showHome(); break;
+                case 'sell': showSellForm(); break;
+                case 'orders': showOrders(); break;
+                case 'chats': showChats(); break;
+                case 'login': showLogin(); break;
+                case 'register': showRegister(); break;
+                case 'howItWorks':
+                case 'safety':
+                case 'faq':
+                case 'contact':
+                case 'terms':
+                case 'privacy':
+                case 'shipping':
+                case 'returns':
+                    document.getElementById('mainContainer').innerHTML = `
+                        <div style="background: white; padding: 2rem; border-radius: 8px;">
+                            <h2>${section.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</h2>
+                            <p style="margin: 1rem 0;">This page is under construction. Check back soon!</p>
+                            <button class="btn-primary" onclick="showHome()">Back to Home</button>
+                        </div>
+                    `;
+                    break;
+                default: showHome();
+            }
+        }
+
+        // Initialize with sample data if needed
+        async function initializeSampleData() {
+            const products = await supabaseQuery('products');
+            if (!products || products.length === 0) {
+                const sampleProducts = [
+                    {
+                        title: 'iPhone 12 Pro Max',
+                        price: 180000,
+                        category: 'Electronics',
+                        description: 'iPhone 12 Pro Max in excellent condition. Battery health 95%.',
+                        condition: 'Like New',
+                        location: 'Colombo',
+                        images: ['https://via.placeholder.com/300x200?text=iPhone+12'],
+                        seller_id: 1,
+                        seller_name: 'TechHub Shop',
+                        seller_mobile: '0771234567',
+                        status: 'available'
+                    },
+                    {
+                        title: 'Sony PlayStation 5',
+                        price: 165000,
+                        category: 'Electronics',
+                        description: 'Brand new PS5 Digital Edition with one controller.',
+                        condition: 'New',
+                        location: 'Kandy',
+                        images: ['https://via.placeholder.com/300x200?text=PS5'],
+                        seller_id: 2,
+                        seller_name: 'GameZone',
+                        seller_mobile: '0787654321',
+                        status: 'available'
+                    }
+                ];
+
+                for (const product of sampleProducts) {
+                    await supabaseQuery('products', 'POST', product);
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavUI();
+            initializeSampleData().then(() => showHome());
+        });
+    </script>
+</body>
+</html>
